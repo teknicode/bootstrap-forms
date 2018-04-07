@@ -61,6 +61,10 @@ $form->select(2)->set([
 
 The value attribute will pre select the option from those provided in the options array.
 
+Now simply output the form.
+
+`echo $form->html()`
+
 ### License
 
 Copyright 2018 Teknicode

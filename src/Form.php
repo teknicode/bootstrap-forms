@@ -41,7 +41,7 @@ class Form{
         return new Button();
     }
 
-    public function close(){
+    public function html(){
         $this->compile();
 
         $this->form .= '</form>';
