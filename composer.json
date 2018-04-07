@@ -1,7 +1,7 @@
 {
   "name": "teknicode/bootstrap-forms",
   "description": "PHP Class to generate an HTML form with Bootstrap 4 styling",
-  "version":"0.1.0",
+  "version":"1.0.0",
   "keywords": [
     "bootstrap","form","html"
   ],
