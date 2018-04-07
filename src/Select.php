@@ -26,13 +26,13 @@ class Select{
     }
 
     public function get($key){
-        return $this->attributes[$key];
+        return (!empty($this->attributes[$key]) ? $this->attributes[$key] : null);
     }
 
     public function html(){
         $html = '';
 
-        $return = '<div class="form-group my-3">'.(!empty($this->attributes['label'])?'<label'.(!empty($this->attributes['id'])? ' for="'.$this->attributes['id'].'"':'').'>'.$this->attributes['label'].'</label>':'');
+        $return = '<div class="form-group my-3">'.($this->get('label')?'<label'.($this->get('id')? ' for="'.$this->get('id').'"':'').'>'.$this->get('label').'</label>':'');
 
         unset($this->attributes['label']);
         foreach($this->attributes as $attribute => $value){
@@ -43,12 +43,12 @@ class Select{
 
         $return .= '<select '.$html.'>';
         $group_open = false;
-        foreach($this->attributes['options'] as $value => $label){
+        foreach($this->get('options') as $value => $label){
             if($label == "--group--"){
                 $return .= ($group_open == true ? '</optgroup>' : '').'<optgroup label="'.$value.'">';
                 $group_open=true;
             }else {
-                $return .= '<option value="' . $value . '"'.($value == $this->attributes['value'] ? ' selected="selected"' : '').'>' . $label . '</option>';
+                $return .= '<option value="' . $value . '"'.($value == $this->get('value') ? ' selected="selected"' : '').'>' . $label . '</option>';
             }
         }
         $return .= '</select>
