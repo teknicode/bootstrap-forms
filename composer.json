@@ -1,0 +1,24 @@
+{
+  "name": "teknicode/bootstrap-forms",
+  "description": "PHP Class to generate an HTML form with Bootstrap 4 styling",
+  "version":"1.0.0",
+  "keywords": [
+    "bootstrap","form","html"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Oliver Watts",
+      "homepage": "http://teknicode.uk"
+    }
+  ],
+  "require": {
+    "php": ">=5.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Teknicode\\Form\\": "src/"
+    }
+  }
+}
