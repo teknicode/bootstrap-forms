@@ -41,7 +41,7 @@ $form->input(1)->set([
 
 Outputs `<input type="text" name="my_first_input" value="The current value of the input"/>` wrapped with a label.
 
-To add a select
+To add a select.
 
 ```
 $form->select(2)->set([
@@ -50,11 +50,26 @@ $form->select(2)->set([
     "value" => "option3",
     "options" => [
         "First Group Test"=>"--group--",
-        "option1" => "Option 1",
-        "option2" => "Option 2",
+        "Option 1" => "option1",
+        "Option 2" => "option2",
         "Second Group Test"=>"--group--",
-        "option3" => "Option 3",
-        "option4" => "Option 4"
+        "Option 3" => "option3",
+        "Option 4" => "option4"
+    ]
+]);
+```
+
+Radio button also require an array of options.
+
+```
+$form->input(1)->set([
+    "name"=>"my_radio",
+    "type" => "radio",
+    "value" => "value2",
+    "label" => "This is a radio button",
+    "options" => [
+        "option 1" => "value1",
+        "option 2" => "value2"
     ]
 ]);
 ```
