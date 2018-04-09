@@ -32,7 +32,7 @@ class Select{
     public function html(){
         $html = '';
 
-        $return = '<div class="form-group my-3">'.($this->get('label')?'<label'.($this->get('id')? ' for="'.$this->get('id').'"':'').'>'.$this->get('label').'</label>':'');
+        $return = '<div class="form-group">'.($this->get('label')?'<label'.($this->get('id')? ' for="'.$this->get('id').'"':'').'>'.$this->get('label').'</label>':'');
 
         unset($this->attributes['label']);
         foreach($this->attributes as $attribute => $value){
