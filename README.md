@@ -2,6 +2,12 @@
 
 This simple class allows fast generation of html forms with Bootstrap styling.
 
+### Installation
+
+```
+composer require teknicode/bootstrap-forms
+```
+
 ### Usage
 
 ```
