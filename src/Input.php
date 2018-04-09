@@ -2,10 +2,10 @@
 namespace Teknicode\Form;
 class Input{
     private $attributes = array("class"=>"form-control");
-    public $column=1;
+    public $width;
 
-    function __construct($column){
-        $this->column=$column;
+    function __construct($width){
+        $this->width=$width;
     }
 
     public function set(){

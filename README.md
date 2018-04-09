@@ -11,12 +11,7 @@ use Teknicode\Form\Form;
 $form = new Form();
 ```
 
-Now you're ready to generate a form, passing the layout method an int will tell the form how many columns should be available.
-
-```
-$form->layout(2);
-```
-
+Now you're ready to generate a form.
 Open the form and pass in an array containing attributes to be included in the form tag. If you don't provide an action attribute the form will submit to its current url.
 
 ```
@@ -28,7 +23,7 @@ $form->open([
 
 Outputs `<form action="my url" id="my_form">`
 
-Add an input to the form. The int in `input(1)` defines which column this input will appear.
+Add an input to the form. The int in `input(1)` defines the width of the input according to Bootstraps Grid system. For example `input(6)` will set the input width to `col-md-6`.
 
 ```
 $form->input(1)->set([
@@ -76,9 +71,18 @@ $form->input(1)->set([
 
 The value attribute will pre select the option from those provided in the options array.
 
+Add html or a spacer. 
+
+```
+$form->html(
+    6, //grid width
+    '<b>My Content</b>'
+);
+```
+
 Now simply output the form.
 
-`echo $form->html()`
+`echo $form->compile()`
 
 ### License
 

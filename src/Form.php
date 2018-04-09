@@ -25,14 +25,22 @@ class Form{
         return $this->layout;
     }
 
-    public function input($column=1){
-        $i = new Input($column);
+    public function input($width=12){
+        $i = new Input($width);
         $this->inputs[]=$i;
         return $i;
     }
 
-    public function select($column=1){
-        $i = new Select($column);
+    public function select($width=12){
+        $i = new Select($width);
+        $this->inputs[]=$i;
+        return $i;
+    }
+
+    public function html($width=12,$content=null){
+        $i = new \stdClass();
+        $i->width = $width;
+        $i->html = $content;
         $this->inputs[]=$i;
         return $i;
     }
@@ -41,21 +49,18 @@ class Form{
         return new Button();
     }
 
-    public function html(){
-        $this->compile();
+    public function compile(){
+        $this->_compile();
 
         $this->form .= '</form>';
 
         return $this->form;
     }
 
-    private function compile(){
-        $row_size = floor(12/$this->layout->columns());
-        for($i=1;$i<=$this->layout->columns();$i++){
-            $this->form .= '<div class="col-md-'.$row_size.'">';
-            foreach($this->inputs as $input){
-                if($input->column == $i)$this->form .= $input->html();
-            }
+    private function _compile(){
+        foreach($this->inputs as $input){
+            $this->form .= '<div class="col-md-'.$input->width.'">';
+            $this->form .= (method_exists($input,"html") ? $input->html() :$input->html );
             $this->form .= '</div>';
         }
     }
