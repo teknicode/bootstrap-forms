@@ -80,6 +80,15 @@ $form->html(
 );
 ```
 
+Add a button. 
+
+```
+$form->button(1)->set([
+    "text"=>"My Button",
+    "class"=>"btn-lg btn-primary"
+]);
+```
+
 Now simply output the form.
 
 `echo $form->compile()`

@@ -45,8 +45,10 @@ class Form{
         return $i;
     }
 
-    public function button(){
-        return new Button();
+    public function button($width=12){
+        $i = new Button($width);
+        $this->inputs[]=$i;
+        return $i;
     }
 
     public function compile(){

@@ -2,7 +2,11 @@
 namespace Teknicode\Form;
 class Button{
     private $attributes = array("class"=>"btn");
+    public $width;
 
+    function __construct($width){
+        $this->width=$width;
+    }
     public function set(){
         if(func_num_args() == 2) {
             $key = func_get_arg(0);
@@ -21,7 +25,7 @@ class Button{
     }
 
     public function get($key){
-        return $this->attributes[$key];
+        return (!empty($this->attributes[$key]) ? $this->attributes[$key] : null);
     }
 
     public function html(){
