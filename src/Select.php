@@ -44,7 +44,7 @@ class Select{
         $return .= '<select '.$html.'>';
         $group_open = false;
         foreach($this->get('options') as $label => $value){
-            if($value == "--group--"){
+            if($value === "--group--"){
                 $return .= ($group_open == true ? '</optgroup>' : '').'<optgroup label="'.$label.'">';
                 $group_open=true;
             }else {
