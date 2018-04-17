@@ -36,7 +36,7 @@ class Select{
 
         unset($this->attributes['label']);
         foreach($this->attributes as $attribute => $value){
-            if($attribute!="options"){
+            if(!in_array($attribute,["options","value"])){
                 $html .= (!empty($html)?' ':'').$attribute.'="'.$value.'"';
             }
         }
@@ -47,7 +47,13 @@ class Select{
             if($value === "--group--"){
                 $return .= ($group_open == true ? '</optgroup>' : '').'<optgroup label="'.$label.'">';
                 $group_open=true;
-            }else {
+            }elseif( is_array($value) ){
+                $return .= '<option ';
+                foreach( $value as $att => $val ){
+                    $return .= $att.'="'.$val.'" '.($att == "value" && $val == $this->get('value') ? 'selected="selected" ' : '');
+                }
+                $return .= '>' . $label . '</option>';
+            }else{
                 $return .= '<option value="' . $value . '"'.($value == $this->get('value') ? ' selected="selected"' : '').'>' . $label . '</option>';
             }
         }

@@ -51,7 +51,10 @@ $form->select(2)->set([
     "value" => "option3",
     "options" => [
         "First Group Test"=>"--group--",
-        "Option 1" => "option1",
+        "Option 1" => [
+            "value" => "option1",
+            "custom-option-attribute" => "attribute value"
+        ],
         "Option 2" => "option2",
         "Second Group Test"=>"--group--",
         "Option 3" => "option3",
