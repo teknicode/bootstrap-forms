@@ -26,7 +26,7 @@ class Input{
     }
 
     public function get($key){
-        return (!empty($this->attributes[$key]) ? $this->attributes[$key] : null);
+        return (isset($this->attributes[$key]) ? $this->attributes[$key] : null);
     }
 
     public function html(){
