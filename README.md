@@ -80,7 +80,7 @@ $form->input(1)->set([
 
 The value attribute will pre select the option from those provided in the options array.
 
-Add html or a spacer. 
+Add html or a spacer.
 
 ```
 $form->html(
@@ -89,7 +89,7 @@ $form->html(
 );
 ```
 
-Add a button. 
+Add a button.
 
 ```
 $form->button(1)->set([
@@ -101,6 +101,63 @@ $form->button(1)->set([
 Now simply output the form.
 
 `echo $form->compile()`
+
+## Catch and Process Posted Data
+
+Initialize the class object
+
+```
+use Teknicode\Form\Process;
+$process = new Process("mail");
+/*
+Options are "mail" (default) or "sms".
+*/
+```
+Provide settings using the set method as show below:
+```
+$process->set("recipient","email@address.co.uk" /*string or array of strings*/ );
+$process->set("from",["address"=>"sender@address.co.uk","name"=>"Sender Name"]);
+```
+Setup SMTP credentials - skip this to send with mail()
+```
+$process->set("smtp",array(
+  "Host"=>"mailerserver.url.com",
+  "Username"=>"email@username",
+  "Password"=>"AccountPassword",
+  "SSL"=>"tls",
+  "Port"=>587
+));
+```
+Now all thats needed is to catch the post!
+```
+$send = $process->catch();
+
+if( $send['status']=="failed" ){
+  //do something with the error message
+  echo $send['error'];
+}
+```
+The catch method will parse the posted data and create a simple clean email containing the name of the input and value set.
+
+#### List of available settings
+
+Email
+```
+$process->set("recipient",STRING | ARRAY OF STRINGS);
+
+$process->set("from",["address"=>STRING,"name"=>STRING]);
+
+$process->set("subject",STRING);
+
+process->set("smtp",array(
+  "Host"=>STRING,
+  "Username"=>STRING,
+  "Password"=>STRING,
+  "SSL"=>STRING,
+  "Port"=>INT
+));
+```
+
 
 ### License
 
