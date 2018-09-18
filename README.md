@@ -108,10 +108,7 @@ Initialize the class object
 
 ```
 use Teknicode\Form\Process;
-$process = new Process("mail");
-/*
-Options are "mail" (default) or "sms".
-*/
+$process = new Process();
 ```
 Provide settings using the set method as show below:
 ```
