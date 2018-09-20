@@ -1,7 +1,7 @@
 {
   "name": "teknicode/bootstrap-forms",
-  "description": "PHP Class to generate an HTML form with Bootstrap 4 styling",
-  "version":"2.2.0",
+  "description": "PHP Class to generate an HTML form with Bootstrap 4 styling. A built in form capture class can send the form via email or sms.",
+  "version":"2.3.0",
   "keywords": [
     "bootstrap","form","html"
   ],
@@ -15,7 +15,8 @@
   ],
   "require": {
     "php": ">=5.5",
-    "phpmailer/phpmailer": ">=6.0.5"
+    "phpmailer/phpmailer": ">=6.0.5",
+    "teknicode/aws-wrapper": ">=1.2"
   },
   "autoload": {
     "psr-4": {

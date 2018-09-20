@@ -108,7 +108,7 @@ Initialize the class object
 
 ```
 use Teknicode\Form\Process;
-$process = new Process();
+$process = new Process("mail" or "sms"); //mail is default
 ```
 Provide settings using the set method as show below:
 ```
@@ -125,6 +125,19 @@ $process->set("smtp",array(
   "Port"=>587
 ));
 ```
+If you are using SMS, you must provide the following AWS credentials:
+```
+$process->set("aws", array(
+   "aws_access_key_id" => "",
+   "aws_secret_access_key" => "",
+   "default_region" => "eu-west-1",
+   "sms_sender_id" => ""
+));
+
+//you would then provide a mobile number in recipient including the country code:
+$process->set("recipient","+4407123456789");
+```
+
 Now all thats needed is to catch the post!
 ```
 $send = $process->catch();
@@ -155,6 +168,17 @@ process->set("smtp",array(
 ));
 ```
 
+SMS
+```
+$process->set("recipient","+4407123456789");
+
+$process->set("aws", array(
+   "aws_access_key_id" => "",
+   "aws_secret_access_key" => "",
+   "default_region" => "eu-west-1",
+   "sms_sender_id" => ""
+));
+```
 
 ### License
 
