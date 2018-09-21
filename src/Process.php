@@ -1,7 +1,7 @@
 <?php
 namespace Teknicode\Form;
 class Process{
-  private $method; //mail, sms
+  private $method; //mail, sms, mysqli
   private $attributes;
   private $compiled;
   function __construct($method="mail"){
@@ -59,6 +59,10 @@ class Process{
       case "sms":
         return $this->transmit_sms();
       break;
+
+      case "mysqli":
+        return $this->transmit_mysqli();
+      break;
     }
   }
 
@@ -114,5 +118,60 @@ class Process{
     $wrapper = new \Teknicode\Aws($config);
     $message = strip_tags(str_replace(["<br/>","<br>"],"\n",$this->compiled));
     return $wrapper->sms($number,$message);
+  }
+
+  private function transmit_mysqli(){
+
+    //create mysql connection
+    $db_creds = $this->get("mysqli");
+    if( empty( $db_creds["table"] ) ){
+      return [
+        "status" => "failed",
+        "error" => "Table name not provided"
+      ];
+    }
+
+    if( is_array($db_creds) ){
+      $db = new \mysqli(
+        $db_creds['host'],
+        $db_creds['username'],
+        $db_creds['password'],
+        $db_creds['database']
+      );
+
+      $values="";
+      foreach( $this->get("values") as $k => $v ){
+        $values .= (!empty($values)?",":"")."`$k`='".$v."'";
+      }
+
+      if( !empty($this->get("id")) ){
+        //update
+        $save = $db->query( "UPDATE ".$db_creds["table"]." SET ".$values." WHERE id='".$db->escape_string($this->get("id"))."'" );
+      }else{
+        //insert
+        $save = $db->query( "INSERT INTO ".$db_creds["table"]." SET ".$values );
+      }
+
+      if( $save ){
+        return [
+          "status" => "success"
+        ];
+      }else{
+        return [
+          "status" => "failed",
+          "error" => $db->error
+        ];
+      }
+
+    }else{
+      //return no config error
+      return [
+        "status" => "failed",
+        "error" => "Required MySqli credentials missing"
+      ];
+    }
+
+
+
   }
 }

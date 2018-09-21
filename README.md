@@ -117,25 +117,44 @@ $process->set("from",["address"=>"sender@address.co.uk","name"=>"Sender Name"]);
 ```
 Setup SMTP credentials - skip this to send with mail()
 ```
-$process->set("smtp",array(
+$process->set("smtp",[
   "Host"=>"mailerserver.url.com",
   "Username"=>"email@username",
   "Password"=>"AccountPassword",
   "SSL"=>"tls",
   "Port"=>587
-));
+]);
 ```
 If you are using SMS, you must provide the following AWS credentials:
 ```
-$process->set("aws", array(
+$process->set("aws", [
    "aws_access_key_id" => "",
    "aws_secret_access_key" => "",
    "default_region" => "eu-west-1",
    "sms_sender_id" => ""
-));
+]);
 
 //you would then provide a mobile number in recipient including the country code:
 $process->set("recipient","+4407123456789");
+```
+If you are using MySQLi, you must provide the following credentials:
+```
+$process->set("mysqli", [
+   "host" => "",
+   "username" => "",
+   "password" => "",
+   "database" => "",
+   "table" => ""
+]);
+
+//you would then provide the values to be set:
+$process->set("values",[
+  "field name" => "value"
+]]);
+
+//to update an existing entry provide the id
+$process->set("id",INT);
+
 ```
 
 Now all thats needed is to catch the post!
@@ -159,25 +178,42 @@ $process->set("from",["address"=>STRING,"name"=>STRING]);
 
 $process->set("subject",STRING);
 
-process->set("smtp",array(
+process->set("smtp",[
   "Host"=>STRING,
   "Username"=>STRING,
   "Password"=>STRING,
   "SSL"=>STRING,
   "Port"=>INT
-));
+]);
 ```
 
 SMS
 ```
 $process->set("recipient","+4407123456789");
 
-$process->set("aws", array(
+$process->set("aws", [
    "aws_access_key_id" => "",
    "aws_secret_access_key" => "",
    "default_region" => "eu-west-1",
    "sms_sender_id" => ""
-));
+]);
+```
+
+MySQLi
+```
+$process->set("id",INT); //optional for update instead of insert
+
+$process->set("mysqli", [
+   "host" => "",
+   "username" => "",
+   "password" => "",
+   "database" => "",
+   "table" => ""
+]);
+
+$process->set("values",[
+  "field name" => "value"
+]);
 ```
 
 ### License
