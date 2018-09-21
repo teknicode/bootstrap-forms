@@ -141,7 +141,7 @@ class Process{
 
       $values="";
       foreach( $this->get("values") as $k => $v ){
-        $values .= (!empty($values)?",":"")."`$k`='".$v."'";
+        $values .= (!empty($values)?",":"")."`$k`='".$db->escape_string($v)."'";
       }
 
       if( !empty($this->get("id")) ){
