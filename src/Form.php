@@ -37,6 +37,13 @@ class Form{
         return $i;
     }
 
+    public function recaptcha($public_key,$private_key=null,$version=2){
+        //todo: use private key here when form and process are merged
+        $i = new Recaptcha($public_key,$private_key,$version);
+        $this->inputs[]=$i;
+        return $i;
+    }
+
     public function html($width=12,$content=null){
         $i = new \stdClass();
         $i->width = $width;

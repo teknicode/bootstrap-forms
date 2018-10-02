@@ -89,6 +89,14 @@ $form->html(
 );
 ```
 
+Add Google ReCaptcha. You will need to create an api key at https://www.google.com/recaptcha/
+
+```
+$form->recaptcha("your api public key");
+```
+NOTE: You must include the following javascript in your page.
+`<script src='https://www.google.com/recaptcha/api.js'></script>`
+
 Add a button.
 
 ```
@@ -157,6 +165,12 @@ $process->set("id",INT);
 
 ```
 
+Check Google ReCaptcha (optional)
+```
+$process->recaptcha("your api private key");
+//used to check the recaptcha response
+```
+
 Now all thats needed is to catch the post!
 ```
 $send = $process->catch();
@@ -164,6 +178,9 @@ $send = $process->catch();
 if( $send['status']=="failed" ){
   //do something with the error message
   echo $send['error'];
+
+  //in the event of an error the post values are passed back //to repopulate the form
+  $send['data'] contains $_POST
 }
 ```
 The catch method will parse the posted data and create a simple clean email containing the name of the input and value set.

@@ -25,17 +25,50 @@ class Process{
       return (!empty($this->attributes[$key]) ? $this->attributes[$key] : null);
   }
 
+  public function recaptcha($private_key){
+      $this->set("recaptcha",$private_key);
+  }
+
   public function catch(){
     //check for post
     if( $_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST) ){
       if( is_array($this->attributes) && !empty($this->attributes) ){
-        $this->compile();
-        return $this->transmit();
+
+        //check if recaptcha set
+        if( !empty($this->get("recaptcha")) ){
+          //recaptcha check required
+          $recaptcha_check = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$this->get("recaptcha")."&response=".$_POST['g-recaptcha-response']);
+          $recaptcha_check_response = json_decode($recaptcha_check);
+          if( $recaptcha_check_response->success === true || $recaptcha_check_response->success === 1 ){
+            unset($_POST['g-recaptcha-response']);
+            $this->compile();
+
+            $transmit = $this->transmit();
+            if($transmit['status'] == "failed"){
+              //append data
+              $transmit['data']=$_POST;
+            }
+            return $transmit;
+          }else{
+            return [
+              "status" => "failed",
+              "error" => "Please complete the ReCaptcha challenge",
+              "data" => $_POST
+            ];
+          }
+        }else{
+          //recaptcha check not required
+          $this->compile();
+          return $this->transmit();
+        }
+
+
       }else{
         //output error
         return [
           "status" => "failed",
-          "error" => "Required Attributes Missing"
+          "error" => "Required Attributes Missing",
+          "data" => $_POST
         ];
       }
     }
