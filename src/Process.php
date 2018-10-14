@@ -121,6 +121,11 @@ class Process{
       if( !empty($this->get("from")) ){
         $mail->setFrom($this->get("from")['address'],$this->get("from")['name']);
       }
+      if( !empty($this->get("replyto")) ){
+        $mail->AddReplyTo($this->get("replyto"));
+      }
+
+
       if( is_array($this->get("recipient")) ){
         foreach( $this->get("recipient") as $r ){
             $mail->addAddress( $r );

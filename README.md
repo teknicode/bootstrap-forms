@@ -193,6 +193,8 @@ $process->set("recipient",STRING | ARRAY OF STRINGS);
 
 $process->set("from",["address"=>STRING,"name"=>STRING]);
 
+$process->set("replyto",STRING);
+
 $process->set("subject",STRING);
 
 process->set("smtp",[
